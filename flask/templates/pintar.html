@@ -100,6 +100,7 @@
     </div>
     <div id="sombra" style="position: absolute; top: 0; left: 0; z-index: 1; background: rgba(255, 255, 255, 0.5); width: 100vw; height: 100vh; display: none;"></div>
     <button onclick="send_image()">Render</button>
+    <button onclick="gen_panorama()">Gen panorama</button>
 
     <script>
         const d = new DrawTool('myCanvas');
@@ -214,6 +215,13 @@
             })
         }
 
+
+        function gen_panorama() {
+            fetch("/gen-panorama", {
+                method: 'POST'
+            })
+            .then(res => console.log(res))
+        }
 
 </script>
 
