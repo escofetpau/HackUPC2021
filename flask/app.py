@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask import render_template, redirect, make_response
 import services
+import pickle
 
 app = Flask(__name__)
 
