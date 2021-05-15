@@ -16,3 +16,6 @@ def photos_names(request, id):
 
     photos = os.listdir(f'static/dataset/{id}')
     return jsonify(photos)
+
+def photos_to_text(request, id):
+    return 'OK'
