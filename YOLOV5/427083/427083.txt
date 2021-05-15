@@ -1,0 +1,76 @@
+
+Image: 0
+chair (0.8923664093)
+chair (0.8907858133)
+chair (0.7828056812)
+chair (0.7456457019)
+microwave (0.4329554141)
+oven (0.3493375778)
+refrigerator (0.3140484989)
+refrigerator (0.3046816289)
+{'bathroom': 0, 'bedroom': 1.6558018028500001, 'kitchen': 0.9680677056, 'diningroom': 3.3116036057000002, 'livingroom': 0, 'garage': 0}
+
+Image: 1
+couch (0.902381897)
+chair (0.7799184918)
+chair (0.6194654703)
+chair (0.4991553724)
+couch (0.4116393328)
+chair (0.2916010022)
+chair (0.2819622159)
+chair (0.2801210582)
+chair (0.2583653927)
+bed (0.2563991547)
+{'bathroom': 0, 'bedroom': 2.4026915432, 'kitchen': 0, 'diningroom': 3.0105890035, 'livingroom': 2.6280424596, 'garage': 0}
+
+Image: 2
+couch (0.9212294221)
+tv (0.8900509477)
+chair (0.7802284956)
+chair (0.7470923662)
+chair (0.5297430158)
+chair (0.5200608969)
+couch (0.4673208296)
+chair (0.396766603)
+vase (0.3223424852)
+chair (0.2960062027)
+bowl (0.2838760912)
+{'bathroom': 0, 'bedroom': 1.6349487901000002, 'kitchen': 0, 'diningroom': 3.2698975802000003, 'livingroom': 4.557202398799999, 'garage': 0}
+
+Image: 3
+couch (0.8232018948)
+tv (0.804669559)
+person (0.7628631592)
+bed (0.6357216835)
+bench (0.3842841983)
+bench (0.3548245132)
+dining table (0.3417140543)
+{'bathroom': 0, 'bedroom': 2.22502589225, 'kitchen': 0, 'diningroom': 1.0251421629, 'livingroom': 3.2557429076, 'garage': 0}
+
+Image: 4
+refrigerator (0.8834280372)
+chair (0.7133862376)
+oven (0.7034866214)
+dining table (0.6232803464)
+chair (0.5405765772)
+chair (0.4850293398)
+chair (0.3240423799)
+dining table (0.2693573833)
+{'bathroom': 0, 'bedroom': 1.03151726725, 'kitchen': 1.5869146586, 'diningroom': 4.7409477236, 'livingroom': 0, 'garage': 0}
+
+Image: 5
+refrigerator (0.9114007354)
+oven (0.7933859229)
+sink (0.5972095728)
+sink (0.5780236721)
+{'bathroom': 2.3504664898, 'bedroom': 0, 'kitchen': 2.8800199032, 'diningroom': 0, 'livingroom': 0, 'garage': 0}
+
+Image: 6
+bed (0.844966948)
+{'bathroom': 0, 'bedroom': 2.9573843180000003, 'kitchen': 0, 'diningroom': 0, 'livingroom': 0, 'garage': 0}
+
+Image: 7
+toilet (0.8612203002)
+toilet (0.7410338521)
+sink (0.512521863)
+{'bathroom': 4.2295520306, 'bedroom': 0, 'kitchen': 0.512521863, 'diningroom': 0, 'livingroom': 0, 'garage': 0}
