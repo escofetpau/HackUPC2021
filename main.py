@@ -87,7 +87,7 @@ def generate_mapping_data(image_width):
     return map_x_32, map_y_32
  
 
-def panorama_to_cubemap(inp_image, out_dir='out'):
+def panorama_to_cubemap(inp_image, out_file='file', out_dir='out'):
     t0 = time.time()
     imgIn = Image.open(inp_image)
     inSize = imgIn.size
@@ -96,7 +96,7 @@ def panorama_to_cubemap(inp_image, out_dir='out'):
     cubemap = cv2.remap(numpy.array(imgIn), map_x_32, map_y_32, cv2.INTER_LINEAR)
 
     imgOut = Image.fromarray(cubemap)
-    out_filename = os.path.join(out_dir, inp_image.split('/')[-1].split('.')[0]+"_out1.png") 
+    out_filename = os.path.join(out_dir, f"{out_file}_out1.png") 
     imgOut.save(out_filename)
 
     # Mateixa foto però una mica rotada
@@ -106,7 +106,7 @@ def panorama_to_cubemap(inp_image, out_dir='out'):
     cubemap[:, 0:int(w*3/4)] = cubemap[:, int(w/4):int(w)]
     cubemap[:, int(w*3/4):int(w)] = left_cols
     imgOut = Image.fromarray(cubemap)
-    out_filename = os.path.join(out_dir, inp_image.split('/')[-1].split('.')[0]+"_out2.png") 
+    out_filename = os.path.join(out_dir, f"{out_file}_out2.png") 
     imgOut.save(out_filename)
 
 
@@ -156,9 +156,10 @@ def cubemap_to_6_files(fname, out_dir='out'):
 if __name__ == "__main__":
     fname = 'prova.jpeg'
 
-    folder_id = '../tours_1/427083/'
+    folder_id = '../tours_1/267731/'
 
-    panorama_to_cubemap(fname)
+    for i, fname in enumerate(os.listdir(folder_id)):
+        panorama_to_cubemap(folder_id + fname, out_file=i)
 
     # cubemap_to_6_files('prova_out.png')
     # files_to_panorama('back.png', 'front.png', 'right.png','left.png', 'top.png', 'bottom.png')
