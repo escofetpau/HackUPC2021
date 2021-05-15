@@ -19,3 +19,9 @@ def photos_names(request, id):
 
 def photos_to_text(request, id):
     return 'OK'
+
+
+def drawed_image(request):
+    print('hpli')
+    print(request.files['file'])
+    return 'ok', 200
