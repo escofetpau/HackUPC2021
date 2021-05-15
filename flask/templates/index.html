@@ -8,7 +8,35 @@
 <body>
     <!-- <canvas id="myCanvas"></canvas>
     <script src="setup.js"></script> -->
-    <script src="{{ url_for('static', filename='js/three.min.js') }}"></script>
+    <div class="input_container">
+        <input type="text" name="fname" id="inputID">
+    </div>
+
+    <script>
+    // Get the input field
+    var input = document.getElementById("inputID");
+
+    // Execute a function when the user releases a key on the keyboard
+    input.addEventListener("keyup", function(event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        fetch('http://localhost:5000/id/' + input.value, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+        })
+        .then(function(response) {
+            console.log('response =', response);
+        })
+    }
+    })
+    </script>
+
+    <!-- <script src="{{ url_for('static', filename='js/three.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/panolens.min.js') }}"></script>  
     <script>
 
@@ -16,6 +44,6 @@
         const viewer = new PANOLENS.Viewer();
         viewer.add( panorama );
         
-    </script>
+    </script> -->
 
 </body>
