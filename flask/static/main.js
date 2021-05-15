@@ -116,13 +116,14 @@ function editTripode(names, ID) {
     // console.log(document.cookie)
     if (document.cookie == "") {
         console.log("no cookie")
-        document.cookie = "file=" + JSON.stringify({filename: [names[i]], ID: ID});
+        document.cookie = "file=" + JSON.stringify({filename: [names[i]], ID: ID, text:"", last_image:names[i]});
     }
     else {
         cookievalue = document.cookie
         val = cookievalue.slice(5, cookievalue.length)
         val = JSON.parse(val)
         val["filename"].push(names[i])
+        val["last_image"] = names[i];
         document.cookie = "file=" + JSON.stringify(val)
     }
     console.log("cookies added")

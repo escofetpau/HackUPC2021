@@ -373,6 +373,7 @@ def photos_to_text(request, id):
 
     return text
 
+
 def photo_bottom(request, id, photo):
     if not os.path.exists(f'static/cubemap/{id}'):
         os.mkdir(f'static/cubemap/{id}')
