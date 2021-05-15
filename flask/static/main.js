@@ -133,8 +133,21 @@ function generateDescription(ID) {
 
 function loadPicture(names, ID) {
     var name = names[i];
-    var path = 'static/dataset/' + ID + '/' + name;
-    
+    cookievalue = document.cookie
+    val = cookievalue.slice(5, cookievalue.length)
+    val = JSON.parse(val)
+    var files = val['filename'];
+    var found = false;
+    for (let x = 0; x < files.length; ++x) {
+        if (files[x] === name) found = true;
+    }
+
+    if (!found) {
+        var path = 'static/dataset/' + ID + '/' + name;
+    }
+    else {
+        var path = 'static/panorama/' + ID + '/' + name.slice(0, name.length - 5) + '0001.png';
+    }    
     panorama = new PANOLENS.ImagePanorama(path);
     viewer = new PANOLENS.Viewer();
 
@@ -202,7 +215,6 @@ function editTripode(names, ID) {
     val["last_image"] = names[i];
     document.cookie = "file=" + JSON.stringify(val)
 
-    window.location.replace("http://localhost:5000/paint");
-
+    window.location.replace("/paint");
         
     }
