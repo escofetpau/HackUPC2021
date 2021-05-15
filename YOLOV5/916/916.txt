@@ -1,0 +1,178 @@
+
+Image: 0
+tv (0.7366881371)
+bed (0.5466167927)
+potted plant (0.3475779593)
+potted plant (0.3448930681)
+chair (0.325368911)
+bench (0.3177382648)
+{'bathroom': 0, 'bedroom': 2.07584322995, 'kitchen': 0, 'diningroom': 0.325368911, 'livingroom': 1.4733762742, 'garage': 0, 'garden': 1.6456858218}
+bedroom
+
+Image: 11
+bench (0.8890147805)
+bench (0.7714693546)
+bench (0.7440212369)
+potted plant (0.5351805091)
+{'bathroom': 0, 'bedroom': 0, 'kitchen': 0, 'diningroom': 0, 'livingroom': 0, 'garage': 0, 'garden': 7.748696625100001}
+garden
+
+Image: 13
+potted plant (0.7152068019)
+potted plant (0.6369976997)
+potted plant (0.6297082305)
+potted plant (0.4727877676)
+bench (0.4601349831)
+potted plant (0.4077832103)
+potted plant (0.3604060113)
+chair (0.3279655874)
+potted plant (0.3064391911)
+potted plant (0.2941808105)
+bench (0.2883196473)
+potted plant (0.2857711613)
+potted plant (0.2753003538)
+potted plant (0.2742628455)
+potted plant (0.2537255883)
+{'bathroom': 0, 'bedroom': 0.1639827937, 'kitchen': 0, 'diningroom': 0.3279655874, 'livingroom': 0, 'garage': 0, 'garden': 7.157933563}
+garden
+
+Image: 17
+chair (0.8044255376)
+chair (0.687117815)
+couch (0.6178628802)
+dining table (0.6014443636)
+potted plant (0.5758425593)
+potted plant (0.535353899)
+potted plant (0.5085040927)
+tv (0.4774072468)
+chair (0.4723081887)
+bowl (0.4486016631)
+chair (0.4148394763)
+chair (0.3966339529)
+couch (0.3477791846)
+dining table (0.2886888385)
+refrigerator (0.2720208466)
+chair (0.27178666)
+dining table (0.2696666121)
+couch (0.2629576921)
+{'bathroom': 0, 'bedroom': 1.52355581525, 'kitchen': 0.2720208466, 'diningroom': 6.5265110731, 'livingroom': 3.4120140074, 'garage': 0, 'garden': 1.6197005509999998}
+diningroom
+
+Image: 19
+couch (0.9282417893)
+tv (0.8984071612)
+potted plant (0.8506475687)
+potted plant (0.7899540663)
+potted plant (0.7877063751)
+potted plant (0.7829781771)
+potted plant (0.7031536102)
+vase (0.5127188563)
+potted plant (0.464279145)
+chair (0.3846193552)
+vase (0.3395467103)
+vase (0.3317783475)
+{'bathroom': 0, 'bedroom': 0.1923096776, 'kitchen': 0, 'diningroom': 0.3846193552, 'livingroom': 3.653297901, 'garage': 0, 'garden': 4.3787189424}
+garden
+
+Image: 20
+refrigerator (0.8574095368)
+oven (0.7038844824)
+sink (0.6480206251)
+chair (0.6343992949)
+chair (0.6034494042)
+potted plant (0.6003649235)
+dining table (0.5951336026)
+microwave (0.5706964731)
+tv (0.4732405841)
+microwave (0.4624751508)
+chair (0.4333032072)
+sink (0.4147400558)
+chair (0.407757163)
+chair (0.3673405647)
+refrigerator (0.356197685)
+knife (0.3503549993)
+chair (0.2897679508)
+microwave (0.2575443089)
+{'bathroom': 2.1255213618, 'bedroom': 1.3680087924000002, 'kitchen': 2.4488720446500003, 'diningroom': 4.521418392599999, 'livingroom': 0.9464811682, 'garage': 0, 'garden': 0.6003649235}
+diningroom
+
+Image: 21
+oven (0.7932137847)
+potted plant (0.7479400039)
+refrigerator (0.7464280128)
+sink (0.7399063706)
+oven (0.7125743628)
+microwave (0.7057636976)
+potted plant (0.6872992516)
+chair (0.6800229549)
+chair (0.6778718233)
+toaster (0.655949831)
+toaster (0.6510782242)
+potted plant (0.5657042265)
+handbag (0.5587012172)
+chair (0.398375392)
+bottle (0.3828003109)
+bottle (0.3053998351)
+toaster (0.3013281822)
+chair (0.2970873713)
+{'bathroom': 1.4798127412, 'bedroom': 1.02667877075, 'kitchen': 3.4263474643, 'diningroom': 2.0533575415, 'livingroom': 0, 'garage': 0, 'garden': 2.000943482}
+kitchen
+
+Image: 29
+chair (0.8042871356)
+tv (0.8026114702)
+potted plant (0.6383763552)
+couch (0.6312944889)
+couch (0.4323423207)
+chair (0.4245256484)
+chair (0.2865256965)
+microwave (0.2781919539)
+{'bathroom': 0, 'bedroom': 0.75766924025, 'kitchen': 0, 'diningroom': 1.5153384805, 'livingroom': 3.7324965596000004, 'garage': 0, 'garden': 0.6383763552}
+livingroom
+
+Image: 33
+sink (0.4522149861)
+toilet (0.3457211852)
+bottle (0.2940987945)
+bottle (0.286817193)
+sink (0.2867481411)
+{'bathroom': 2.1693686247999997, 'bedroom': 0, 'kitchen': 0.3694815636, 'diningroom': 0, 'livingroom': 0, 'garage': 0, 'garden': 0}
+bathroom
+
+Image: 34
+teddy bear (0.7540279627)
+bed (0.6987197995)
+vase (0.6358770728)
+book (0.5608900189)
+book (0.4586752653)
+book (0.371987015)
+book (0.3475513756)
+book (0.3186411262)
+{'bathroom': 0, 'bedroom': 2.44551929825, 'kitchen': 0, 'diningroom': 0, 'livingroom': 0, 'garage': 0, 'garden': 0}
+bedroom
+
+Image: 35
+bed (0.8679314256)
+bed (0.8083497882)
+clock (0.3425636888)
+{'bathroom': 0, 'bedroom': 5.8669842483, 'kitchen': 0, 'diningroom': 0, 'livingroom': 0, 'garage': 0, 'garden': 0}
+bedroom
+
+Image: 36
+bed (0.8412783146)
+{'bathroom': 0, 'bedroom': 2.9444741011, 'kitchen': 0, 'diningroom': 0, 'livingroom': 0, 'garage': 0, 'garden': 0}
+bedroom
+
+Image: 38
+bed (0.8883826137)
+tv (0.7881286144)
+chair (0.4420132935)
+chair (0.3520697057)
+chair (0.3110538423)
+{'bathroom': 0, 'bedroom': 3.6619075687, 'kitchen': 0, 'diningroom': 1.1051368415, 'livingroom': 1.5762572288, 'garage': 0, 'garden': 0}
+bedroom
+
+Image: 42
+sink (0.798410356)
+{'bathroom': 1.596820712, 'bedroom': 0, 'kitchen': 0.399205178, 'diningroom': 0, 'livingroom': 0, 'garage': 0, 'garden': 0}
+bathroom
