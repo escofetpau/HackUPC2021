@@ -17,8 +17,9 @@ def paint_view(): return services.paint_view(request)
 @app.route('/photos/<id>')
 def photos_names(id): return services.photos_names(request, id)
 
+
 @app.route('/text/<id>')
-def photos_names(id): return services.photos_to_text(request, id)
+def photos_to_text(id): return services.photos_to_text(request, id)
 
 
 if __name__ == '__main__':
