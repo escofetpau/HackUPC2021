@@ -187,8 +187,12 @@ def drawed_image(request):
     print('file saved at edge-connect/eval/mask/tmp_mask.png')
 
     print('Call edge-connect')
-    cmd = 'python test.py --checkpoints .\checkpoints\places2 --input eval\image --mask eval\mask --output eval'
-    cmd = 'cd ../../edge-connect & ' + cmd + ' & cd ../HackUPC2021/flask'
+    os.environ["CUDA_VISIBLE_DEVICES"]='0,1,2,3'
+    cmd = 'python test.py --checkpoints checkpoints/places2 --input eval/image --mask eval/mask --output eval'
+    cmd = 'cd ../../edge-connect ; ' + cmd + ' ; cd ../HackUPC2021/flask'
+
+    print('running comand:',cmd)
+
     t0 = time.time()
     os.system(cmd)
     print('Processing took:', int(time.time() - t0), 'seconds')
