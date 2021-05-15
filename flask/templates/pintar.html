@@ -7,13 +7,19 @@
 <body style="margin: 0;">
 
     <div style="margin: auto;">
-        <canvas id="myCanvas" height="1024px" width="1024px" style="height: 500px; width: 500px;"></canvas>
+        <canvas id="myCanvas" height="1024px" width="1024px" style="height: 90vh;"></canvas>
     </div>
+
+    <form method="POST" enctype="multipart/form-data" action="/drawed-image">
+        <input type="file" name="photo" id='file-inp'/>
+        <input type="submit" />
+    </form>
 
     <script>
         const d = new DrawTool('myCanvas');
         d.background("green");
         var r = null;
+        var myImageData = null;
 
         fetch('static/bottom.png')
         .then(res => res.blob())
@@ -27,6 +33,7 @@
             img.onload = function() {                    
                 URL.revokeObjectURL(this.src);             
                 d.ctx.drawImage(this, 0, 0);
+                myImageData = d.ctx.getImageData(0, 0, d.width, d.height);
             };
 
             img.src = url;   
@@ -34,14 +41,85 @@
             console.log('data drawed')
         }
 
-        function blob2canvas(canvas, blob){
-            var img = new Img;
-            var ctx = canvas.getContext('2d');
-            img.onload = function () {
-                ctx.drawImage(img,0,0);
-            }
-            img.src = blob;
+        d.mouseX = 0;
+        d.mouseY = 0;
+
+        function getMousePos(canvas, evt) {
+            var rect = canvas.getBoundingClientRect();
+            return {
+                x: (evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width,
+                y: (evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height
+            };
         }
+
+        
+        var mouse_down = false;
+
+        onmousemove = (e) => {
+            let data = getMousePos(d.canv, e);
+            d.mouseX = data.x;
+            d.mouseY = data.y;
+            if (!mouse_down) update();
+            d.circle(d.mouseX, d.mouseY, 10, {color: '#ffffff'});
+        }
+
+
+        onmousedown = (e) => {
+            mouse_down = true;
+        }
+
+        onmouseup = (e) => {
+            mouse_down = false;
+            store_current_frame();
+        }
+
+        function store_current_frame() {
+            myImageData = d.ctx.getImageData(0, 0, d.width, d.height);
+        }
+
+        function update () {
+            if (myImageData !== null) d.ctx.putImageData(myImageData, 0, 0);
+        }
+
+        function blobToFile(theBlob, fileName){
+            theBlob.lastModifiedDate = new Date();
+            theBlob.name = fileName;
+            return theBlob;
+        }
+
+        function send_image() {
+            var tmpImage = d.ctx.getImageData(0, 0, d.width, d.height);
+            for (let i = 0; i < tmpImage.data.length; i += 4) {
+                if (tmpImage.data[i] !== 255 || tmpImage.data[i + 1] !== 255 || tmpImage.data[i + 2] !== 255) {
+                    tmpImage.data[i] = 0;
+                    tmpImage.data[i + 1] = 0;
+                    tmpImage.data[i + 2] = 0;
+                    tmpImage.data[i + 3] = 255;
+                }
+            }
+            d.ctx.putImageData(tmpImage, 0, 0);
+
+            d.canv.toBlob(blob => {
+                d.ctx.putImageData(myImageData, 0, 0);
+
+                var file = blobToFile(blob, 'bottom-drawed.png');
+
+                var formData = new FormData();
+                formData.append("file", file);
+                
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log(this.response);
+                    }
+                };
+                request.open("POST", "/drawed-image");
+                request.send(formData);
+
+
+            })
+        }
+
 
 </script>
 
