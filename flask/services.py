@@ -4,6 +4,7 @@ import os
 import torch
 from PIL import Image
 import operator
+import json
 import cv2
 import numpy
 import sys
@@ -198,6 +199,7 @@ def drawed_image(request):
 
 
 def photos_to_text(request, id):
+
     if id is None or not os.path.isdir(f'static/dataset/{id}'):
         return 'ID does not exist', 400
 
@@ -205,7 +207,7 @@ def photos_to_text(request, id):
         with open(f'static/description/{id}.txt', 'r') as file:
             data = file.read()
 
-        return data
+        return eval(data)
 
     if not os.path.exists(f'static/cubemap/{id}'):
         os.mkdir(f'static/cubemap/{id}')
@@ -276,10 +278,10 @@ def photos_to_text(request, id):
     ### Generació del text
     mockup = {'type': 'house', 'city': 'Barcelona', 'street': 'Rambla'}
 
-    text = ""
+    text = "{'description': '"
 
     # Type and location
-    text += f"This property is a {mockup['type']} located in {mockup['city']} on street {mockup['street']}.\n"
+    text += f"This property is a {mockup['type']} located in {mockup['city']} on street {mockup['street']}.\\n"
     
     # Bathroom and bedrooms
     bedroom_elems = set()
@@ -297,7 +299,7 @@ def photos_to_text(request, id):
     if 'chair' in bedroom_elems:
         sentences.append('some chairs')
 
-    text += f"This {mockup['type']} has {len(property_rooms['bathroom'])} bathrooms and {len(property_rooms['bedroom'])} bedrooms with {concat_sentences(sentences, False)}.\n"
+    text += f"This {mockup['type']} has {len(property_rooms['bathroom'])} bathrooms and {len(property_rooms['bedroom'])} bedrooms with {concat_sentences(sentences, False)}.\\n"
 
     # Diningroom
     diningroom_elems = set()
@@ -381,10 +383,11 @@ def photos_to_text(request, id):
     if len(sentences) != 0:
         text += f" The property also has a garden with {concat_sentences(sentences)}."
 
+    text += "'}"
     with open(f'static/description/{id}.txt', 'w') as file:
         file.write(text)
 
-    return text
+    return eval(text)
 
 
 def photo_bottom(request, id, photo):
