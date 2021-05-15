@@ -1,0 +1,51 @@
+<html>
+<head>
+
+    <script src="{{ url_for('static', filename='js/draw.js') }}"></script>
+</head>
+
+<body style="margin: 0;">
+
+    <div style="margin: auto;">
+        <canvas id="myCanvas" height="1024px" width="1024px" style="height: 500px; width: 500px;"></canvas>
+    </div>
+
+    <script>
+        const d = new DrawTool('myCanvas');
+        d.background("green");
+        var r = null;
+
+        fetch('static/bottom.png')
+        .then(res => res.blob())
+        .then(res => draw_to_canvas(res))
+        .catch(err => console.log(err))
+
+        function draw_to_canvas(blob) {
+            r = blob;
+            var url = URL.createObjectURL(blob);
+            var img = new Image();
+            img.onload = function() {                    
+                URL.revokeObjectURL(this.src);             
+                d.ctx.drawImage(this, 0, 0);
+            };
+
+            img.src = url;   
+
+            console.log('data drawed')
+        }
+
+        function blob2canvas(canvas, blob){
+            var img = new Img;
+            var ctx = canvas.getContext('2d');
+            img.onload = function () {
+                ctx.drawImage(img,0,0);
+            }
+            img.src = blob;
+        }
+
+</script>
+
+
+</body>
+
+</html>
