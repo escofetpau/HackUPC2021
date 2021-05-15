@@ -2,3 +2,4 @@ out/
 *.pt
 flask/__pycache__/
 flask/static/dataset
+flask/static/cubemap/*
