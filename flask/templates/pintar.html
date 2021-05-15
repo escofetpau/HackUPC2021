@@ -107,7 +107,14 @@
         var r = null;
         var myImageData = null;
 
-        fetch('static/bottom.png')
+        cookievalue = document.cookie
+        val = cookievalue.slice(5, cookievalue.length)
+        console.log(val)
+        val = JSON.parse(val)
+        ID = val['ID']
+        last_img = val['last_image']
+
+        fetch('/bottom/' + ID + '/' + last_img)
         .then(res => res.blob())
         .then(res => draw_to_canvas(res))
         .catch(err => console.log(err))
