@@ -24,9 +24,7 @@ def photos_to_text(id): return services.photos_to_text(request, id)
 
 
 @app.route('/drawed-image', methods=['POST'])
-def drawed_image(): 
-    print('La request feta:')
-    return services.drawed_image(request)
+def drawed_image(): return services.drawed_image(request)
 
 
 if __name__ == '__main__':

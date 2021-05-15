@@ -60,7 +60,7 @@
             d.mouseX = data.x;
             d.mouseY = data.y;
             if (!mouse_down) update();
-            d.circle(d.mouseX, d.mouseY, 10, {color: 'white'});
+            d.circle(d.mouseX, d.mouseY, 10, {color: '#ffffff'});
         }
 
 
@@ -88,7 +88,20 @@
         }
 
         function send_image() {
+            var tmpImage = d.ctx.getImageData(0, 0, d.width, d.height);
+            for (let i = 0; i < tmpImage.data.length; i += 4) {
+                if (tmpImage.data[i] !== 255 || tmpImage.data[i + 1] !== 255 || tmpImage.data[i + 2] !== 255) {
+                    tmpImage.data[i] = 0;
+                    tmpImage.data[i + 1] = 0;
+                    tmpImage.data[i + 2] = 0;
+                    tmpImage.data[i + 3] = 255;
+                }
+            }
+            d.ctx.putImageData(tmpImage, 0, 0);
+
             d.canv.toBlob(blob => {
+                d.ctx.putImageData(myImageData, 0, 0);
+
                 var file = blobToFile(blob, 'bottom-drawed.png');
 
                 var formData = new FormData();

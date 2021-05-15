@@ -116,6 +116,7 @@ def panorama_to_cubemap(inp_image, out_file='file', out_dir='out'):
     # print('File generated:', out_filename)
     return out_filename
 
+
 def concat_sentences(sentences, add_be = True):
   if len(sentences) == 0:
     return "nothing"
@@ -139,12 +140,14 @@ def concat_sentences(sentences, add_be = True):
 
   return text
 
+
 def base(request):
     return render_template("index.html", user={'name': 'nico'})
 
 
 def paint_view(request):
     return render_template("pintar.html")
+
 
 def photos_names(request, id):
     if id is None or not os.path.isdir(f'static/dataset/{id}'):
@@ -158,6 +161,7 @@ def drawed_image(request):
     print('hpli')
     print(request.files['file'])
     return 'ok', 200
+
 
 def photos_to_text(request, id):
     if id is None or not os.path.isdir(f'static/dataset/{id}'):
@@ -336,3 +340,5 @@ def photos_to_text(request, id):
             text += f" The property also has a garden with {concat_sentences(sentences)}."
 
     return text
+
+
