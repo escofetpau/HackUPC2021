@@ -156,10 +156,10 @@ def cubemap_to_6_files(fname, out_dir='out'):
 if __name__ == "__main__":
     fname = 'prova.jpeg'
 
-    folder_id = '../tours_1/267731/'
+    # folder_id = '../tours_1/916/'
 
-    for i, fname in enumerate(os.listdir(folder_id)):
-        panorama_to_cubemap(folder_id + fname, out_file=i)
+    # for i, fname in enumerate(os.listdir(folder_id)):
+    #     panorama_to_cubemap(folder_id + fname, out_file=i)
 
-    # cubemap_to_6_files('prova_out.png')
+    cubemap_to_6_files('out/4_out1.png')
     # files_to_panorama('back.png', 'front.png', 'right.png','left.png', 'top.png', 'bottom.png')

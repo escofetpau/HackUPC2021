@@ -1,2 +1,4 @@
 out/
 *.pt
+flask/__pycache__/
+flask/static/dataset
