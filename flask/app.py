@@ -10,7 +10,6 @@ app = Flask(__name__)
 def base_route(): return services.base(request)
 
 
-
 @app.route('/paint')
 def paint_view(): return services.paint_view(request)
 
@@ -21,6 +20,10 @@ def photos_names(id): return services.photos_names(request, id)
 
 @app.route('/text/<id>')
 def photos_to_text(id): return services.photos_to_text(request, id)
+
+
+@app.route('/bottom/<id>/<photo>')
+def photo_bottom(id, photo): return services.photo_bottom(request, id, photo)
 
 
 @app.route('/drawed-image', methods=['POST'])

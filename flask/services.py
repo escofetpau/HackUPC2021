@@ -12,6 +12,27 @@ from numpy import pi
 import pickle
 import time
 
+def cubemap_to_6_files(fname, out_dir='out'):
+    file_name = fname.split('/')[-1].split('.')[0]
+    image = cv2.imread(fname)
+    h = image.shape[0]
+    w = image.shape[1]
+    
+    back    = image[int(h/3):int(h*2/3), 0:int(w/4)]
+    left    = image[int(h/3):int(h*2/3), int(w/4):int(w*2/4)]
+    front   = image[int(h/3):int(h*2/3), int(w*2/4):int(w*3/4)]
+    right   = image[int(h/3):int(h*2/3), int(w*3/4):int(w)]
+    top     = image[0:int(h/3), int(w*2/4):int(w*3/4)]
+    bottom  = image[int(h*2/3):int(h), int(w*2/4):int(w*3/4)]
+
+    cv2.imwrite(os.path.join(out_dir, 'back.png'), back)
+    cv2.imwrite(os.path.join(out_dir, 'left.png'), left)
+    cv2.imwrite(os.path.join(out_dir, 'front.png'), front)
+    cv2.imwrite(os.path.join(out_dir, 'right.png'), right)
+    cv2.imwrite(os.path.join(out_dir, 'top.png'), top)
+    cv2.imwrite(os.path.join(out_dir, 'bottom.png'), bottom)
+
+
 def generate_mapping_data(image_width):
     in_size = [image_width, image_width * 3 / 4]
     edge = in_size[0] / 4  # The length of each edge in pixels
@@ -180,6 +201,12 @@ def photos_to_text(request, id):
     if id is None or not os.path.isdir(f'static/dataset/{id}'):
         return 'ID does not exist', 400
 
+    if os.path.exists(f'static/description/{id}.txt'):
+        with open(f'static/description/{id}.txt', 'r') as file:
+            data = file.read()
+
+        return data
+
     if not os.path.exists(f'static/cubemap/{id}'):
         os.mkdir(f'static/cubemap/{id}')
     
@@ -242,116 +269,135 @@ def photos_to_text(request, id):
             if item['name'] in garden:
                 room['garden'] += item['confidence']*garden[item['name']]
         
-        property_rooms[max(room.items(), key=operator.itemgetter(1))[0]].append(elements)
+        class_room = max(room.items(), key=operator.itemgetter(1))[0]
+        if not((class_room == 'bathroom' or class_room == 'bedroom') and max(room.values()) < 1):
+            property_rooms[class_room].append(elements)
 
-        ### Generació del text
-        mockup = {'type': 'house', 'city': 'Barcelona', 'street': 'Rambla'}
+    ### Generació del text
+    mockup = {'type': 'house', 'city': 'Barcelona', 'street': 'Rambla'}
 
-        text = ""
+    text = ""
 
-        # Type and location
-        text += f"This property is a {mockup['type']} located in {mockup['city']} on street {mockup['street']}.\n"
-        
-        # Bathroom and bedrooms
-        bedroom_elems = set()
-        for i in property_rooms['bedroom']:
-            bedroom_elems = bedroom_elems.union(set(i))
+    # Type and location
+    text += f"This property is a {mockup['type']} located in {mockup['city']} on street {mockup['street']}.\n"
+    
+    # Bathroom and bedrooms
+    bedroom_elems = set()
+    for i in property_rooms['bedroom']:
+        bedroom_elems = bedroom_elems.union(set(i))
 
-        sentences = []
-        if 'bed' in bedroom_elems:
-            sentences.append('a bed')
-            sentences.append('some cupboards')
-        if 'tv' in bedroom_elems:
-            sentences.append('a tv')
-        if 'book' in bedroom_elems:
-            sentences.append('some books')
-        if 'chair' in bedroom_elems:
-            sentences.append('some chairs')
+    sentences = []
+    if 'bed' in bedroom_elems:
+        sentences.append('a bed')
+        sentences.append('some cupboards')
+    if 'tv' in bedroom_elems:
+        sentences.append('a tv')
+    if 'book' in bedroom_elems:
+        sentences.append('some books')
+    if 'chair' in bedroom_elems:
+        sentences.append('some chairs')
 
-        text += f"This {mockup['type']} has {len(property_rooms['bathroom'])} bathrooms and {len(property_rooms['bedroom'])} bedrooms with {concat_sentences(sentences, False)}.\n"
+    text += f"This {mockup['type']} has {len(property_rooms['bathroom'])} bathrooms and {len(property_rooms['bedroom'])} bedrooms with {concat_sentences(sentences, False)}.\n"
 
-        # Diningroom
-        diningroom_elems = set()
-        for i in property_rooms['diningroom']:
-            diningroom_elems = diningroom_elems.union(set(i))
+    # Diningroom
+    diningroom_elems = set()
+    for i in property_rooms['diningroom']:
+        diningroom_elems = diningroom_elems.union(set(i))
 
-        sentences = []
-        if 'couch' in diningroom_elems:
-            sentences.append('a couch')
-        if 'chair' in diningroom_elems:
-            sentences.append('some chairs')
-        if 'tv' in diningroom_elems:
-            sentences.append('a tv')
-        if 'potted plant' in diningroom_elems:
-            sentences.append('some potted plants')
-        if 'dining table' in diningroom_elems:
-            sentences.append('a dining table')
+    sentences = []
+    if 'couch' in diningroom_elems:
+        sentences.append('a couch')
+    if 'chair' in diningroom_elems:
+        sentences.append('some chairs')
+    if 'tv' in diningroom_elems:
+        sentences.append('a tv')
+    if 'potted plant' in diningroom_elems:
+        sentences.append('some potted plants')
+    if 'dining table' in diningroom_elems:
+        sentences.append('a dining table')
 
-        if len(sentences) != 0:
-            text += f"In the dining room there {concat_sentences(sentences)}."
+    if len(sentences) != 0:
+        text += f"In the dining room there {concat_sentences(sentences)}."
 
-        # Kitchen
-        kitchen_elems = set()
-        for i in property_rooms['kitchen']:
-            kitchen_elems = kitchen_elems.union(set(i))
+    # Kitchen
+    kitchen_elems = set()
+    for i in property_rooms['kitchen']:
+        kitchen_elems = kitchen_elems.union(set(i))
 
-        sentences = []
-        if 'oven' in kitchen_elems:
-            sentences.append('an oven')
-        if 'refrigerator' in kitchen_elems:
-            sentences.append('a refrigerator')
-        if 'sink' in kitchen_elems:
-            sentences.append('a sink')
-        if 'microwave' in kitchen_elems:
-            sentences.append('a microwave')
-        if 'toaster' in kitchen_elems:
-            sentences.append('a toaster')
-        if 'chair' in kitchen_elems:
-            sentences.append('some chairs')
+    sentences = []
+    if 'oven' in kitchen_elems:
+        sentences.append('an oven')
+    if 'refrigerator' in kitchen_elems:
+        sentences.append('a refrigerator')
+    if 'sink' in kitchen_elems:
+        sentences.append('a sink')
+    if 'microwave' in kitchen_elems:
+        sentences.append('a microwave')
+    if 'toaster' in kitchen_elems:
+        sentences.append('a toaster')
+    if 'chair' in kitchen_elems:
+        sentences.append('some chairs')
 
-        if len(sentences) != 0:
-            text += f" Regarding the kitchen there {concat_sentences(sentences)}."
+    if len(sentences) != 0:
+        text += f" Regarding the kitchen there {concat_sentences(sentences)}."
 
-        # Livingroom
-        livingroom_elems = set()
-        for i in property_rooms['livingroom']:
-            livingroom_elems = livingroom_elems.union(set(i))
+    # Livingroom
+    livingroom_elems = set()
+    for i in property_rooms['livingroom']:
+        livingroom_elems = livingroom_elems.union(set(i))
 
-        sentences = []
-        if 'couch' in livingroom_elems:
-            sentences.append('a couch')
-        if 'tv' in livingroom_elems:
-            sentences.append('a tv')
-        if 'potted plant' in livingroom_elems:
-            sentences.append('some potted plants')
-        if 'chair' in livingroom_elems:
-            sentences.append('some chairs')
+    sentences = []
+    if 'couch' in livingroom_elems:
+        sentences.append('a couch')
+    if 'tv' in livingroom_elems:
+        sentences.append('a tv')
+    if 'potted plant' in livingroom_elems:
+        sentences.append('some potted plants')
+    if 'chair' in livingroom_elems:
+        sentences.append('some chairs')
 
-        if len(sentences) != 0:
-            text += f" In the livingroom there {concat_sentences(sentences)}."
+    if len(sentences) != 0:
+        text += f" In the livingroom there {concat_sentences(sentences)}."
 
-        # Garden
-        garden_elems = set()
-        for i in property_rooms['garden']:
-            garden_elems = garden_elems.union(set(i))
+    # Garden
+    garden_elems = set()
+    for i in property_rooms['garden']:
+        garden_elems = garden_elems.union(set(i))
 
-        sentences = []
-        if 'potted plant' in garden_elems:
-            sentences.append('some plotted plants')
-        if 'chair' in garden_elems:
-            sentences.append('some chairs')
-        if 'bench' in garden_elems:
-            sentences.append('a bench')
-        if 'fence' in garden_elems:
-            sentences.append('a fence')
-        if 'couch' in garden_elems:
-            sentences.append('a couch')
-        if 'vase' in garden_elems:
-            sentences.append('some vase')
+    sentences = []
+    if 'potted plant' in garden_elems:
+        sentences.append('some plotted plants')
+    if 'chair' in garden_elems:
+        sentences.append('some chairs')
+    if 'bench' in garden_elems:
+        sentences.append('a bench')
+    if 'fence' in garden_elems:
+        sentences.append('a fence')
+    if 'couch' in garden_elems:
+        sentences.append('a couch')
+    if 'vase' in garden_elems:
+        sentences.append('some vase')
 
-        if len(sentences) != 0:
-            text += f" The property also has a garden with {concat_sentences(sentences)}."
+    if len(sentences) != 0:
+        text += f" The property also has a garden with {concat_sentences(sentences)}."
+
+    with open(f'static/description/{id}.txt', 'w') as file:
+        file.write(text)
 
     return text
 
+def photo_bottom(request, id, photo):
+    if not os.path.exists(f'static/cubemap/{id}'):
+        os.mkdir(f'static/cubemap/{id}')
 
+    if not os.path.exists(f'static/cubemap/{id}/{photo[:-5]}_out1.png'):
+        panorama_to_cubemap(f'static/dataset/{id}/{photo}', photo[:-5], f'static/cubemap/{id}')
+
+    if not os.path.exists(f'static/cubemap_split/{id}'):
+        os.mkdir(f'static/cubemap_split/{id}')
+
+    if not os.path.exists(f'static/cubemap_split/{id}/{photo[:-5]}'):
+        os.mkdir(f'static/cubemap_split/{id}/{photo[:-5]}')
+
+    cubemap_to_6_files(f'static/cubemap/{id}/{photo[:-5]}_out1.png', f'static/cubemap_split/{id}/{photo[:-5]}')
+    return send_file(f'static/cubemap_split/{id}/{photo[:-5]}/bottom.png')

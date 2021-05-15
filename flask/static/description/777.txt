@@ -1,0 +1,3 @@
+This property is a house located in Barcelona on street Rambla.
+This house has 2 bathrooms and 4 bedrooms with a bed and some cupboards.
+In the dining room there are some chairs. Regarding the kitchen there is an oven, a refrigerator, a sink and a microwave. In the livingroom there is a couch and some potted plants.
