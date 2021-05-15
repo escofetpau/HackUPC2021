@@ -3,49 +3,34 @@
 
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+    <script src="{{ url_for('static', filename='js/three.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/panolens.min.js') }}"></script>
 </head>
 
 <body>
     <!-- <canvas id="myCanvas"></canvas>
     <script src="setup.js"></script> -->
-    <div class="input_container">
+    <div class="input_container" id="container">
         <input type="text" name="fname" id="inputID">
     </div>
 
-    <script>
-    // Get the input field
-    var input = document.getElementById("inputID");
+    <button type="button" id="next">
+        <img src="static/right-arrow.png" width="30px" height="30px">
+    </button>
 
-    // Execute a function when the user releases a key on the keyboard
-    input.addEventListener("keyup", function(event) {
-    // Number 13 is the "Enter" key on the keyboard
-    if (event.keyCode === 13) {
-        // Cancel the default action, if needed
-        event.preventDefault();
-        // Trigger the button element with a click
-        fetch('http://localhost:5000/id/' + input.value, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-        })
-        .then(function(response) {
-            response.json().then(data => {
-                console.log(data);
-            });
-        })
-    }
-    })
-    </script>
+    
+    <button type="button" id="previous">
+        <img src="static/right-arrow.png" width="30px" height="30px">
+    </button>
 
-    <!-- <script src="{{ url_for('static', filename='js/three.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/panolens.min.js') }}"></script>  
-    <script>
+    
+    <button type="button" id="tripode" ">
+        <img src="static/right-arrow.png" width="30px" height="30px">
+    </button>
 
-        const panorama = new PANOLENS.ImagePanorama('static/dataset/916/l_r_equirectangular_916_59ce0b0c42dd3.jpeg');
-        const viewer = new PANOLENS.Viewer();
-        viewer.add( panorama );
-        
-    </script> -->
+
+    <script src="static/main.js"></script>
+
 
 </body>
