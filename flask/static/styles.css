@@ -13,6 +13,28 @@ input {
     text-align: center;
 }
 
+#generate_text {
+    position: absolute;
+    left: 2vw;
+    top: 2vh;
+    z-index: 3;
+    display: none;
+    cursor: pointer;
+    background:none;
+    border: none;
+
+}
+
+#description {
+    position: absolute;
+    left: 2vw;
+    top: 2vh;
+    z-index: 3;
+    display: none;
+    background: white;
+    border: none;
+}
+
 #next {
     position: absolute;
     left: 95vw;
