@@ -9,6 +9,8 @@ import numpy
 import sys
 import time
 from numpy import pi
+import pickle
+import time
 
 def generate_mapping_data(image_width):
     in_size = [image_width, image_width * 3 / 4]
@@ -158,9 +160,20 @@ def photos_names(request, id):
 
 
 def drawed_image(request):
-    print('hpli')
-    print(request.files['file'])
-    return 'ok', 200
+    file = request.files['file']
+    file.save('../../edge-connect/eval/mask/tmp_mask.png')
+    print('file saved at edge-connect/eval/mask/tmp_mask.png')
+
+    print('Call edge-connect')
+    cmd = 'python test.py --checkpoints .\checkpoints\places2 --input eval\image --mask eval\mask --output eval'
+    cmd = 'cd ../../edge-connect & ' + cmd + ' & cd ../HackUPC2021/flask'
+    t0 = time.time()
+    os.system(cmd)
+    print('Processing took:', int(time.time() - t0), 'seconds')
+
+    # /panorama/filename.png
+
+    return send_file('../../edge-connect/eval/bottom.png')
 
 
 def photos_to_text(request, id):
