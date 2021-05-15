@@ -14,6 +14,11 @@ def base_route(): return services.base(request)
 def paint_view(): return services.paint_view(request)
 
 
+@app.route('/id/<id>')
+def photos_names(id): return services.photos_names(request, id)
+
+
+
 
 if __name__ == '__main__':
     # app.run()
