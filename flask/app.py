@@ -30,6 +30,10 @@ def photo_bottom(id, photo): return services.photo_bottom(request, id, photo)
 def drawed_image(): return services.drawed_image(request)
 
 
+@app.route('/gen-panorama', methods=['POST'])
+def gen_panorama(): return services.gen_panorama(request)
+
+
 if __name__ == '__main__':
     # app.run()
     app.run(debug=True)

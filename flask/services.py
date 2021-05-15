@@ -192,9 +192,28 @@ def drawed_image(request):
     os.system(cmd)
     print('Processing took:', int(time.time() - t0), 'seconds')
 
-    # /panorama/filename.png
-
     return send_file('../../edge-connect/eval/bottom.png')
+
+
+
+def files_to_panorama(back, front, right, left, top, bottom, out_dir='out'):
+    t0 = time.time()
+
+    output_filename = os.path.join(out_dir, 'panorama')
+    command = f'cube2sphere {back} {front} {right} {left} {top} {bottom} -f PNG -o {output_filename} -r 4096 2048'
+    print('running command:', command)
+    os.system(command)
+
+    print(time.time() - t0, 'seconds')
+    print(f'File generated: {output_filename}.png')
+
+    return output_filename
+
+
+
+def gen_panorama(request):
+    files_to_panorama('static/split/back.png', 'static/split/front.png', 'static/split/right.png', 'static/split/left.png', 'static/split/top.png', '../../edge-connect/eval/bottom.png', out_dir='.')
+    return 'ok', 200
 
 
 def photos_to_text(request, id):
@@ -385,6 +404,7 @@ def photos_to_text(request, id):
         file.write(text)
 
     return text
+
 
 def photo_bottom(request, id, photo):
     if not os.path.exists(f'static/cubemap/{id}'):

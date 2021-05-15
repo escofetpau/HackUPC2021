@@ -161,5 +161,5 @@ if __name__ == "__main__":
     # for i, fname in enumerate(os.listdir(folder_id)):
     #     panorama_to_cubemap(folder_id + fname, out_file=i)
 
-    cubemap_to_6_files('out/4_out1.png')
+    cubemap_to_6_files('prova_out.png')
     # files_to_panorama('back.png', 'front.png', 'right.png','left.png', 'top.png', 'bottom.png')
