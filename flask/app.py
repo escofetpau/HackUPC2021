@@ -9,6 +9,12 @@ app = Flask(__name__)
 def base_route(): return services.base(request)
 
 
+
+@app.route('/paint')
+def paint_view(): return services.paint_view(request)
+
+
+
 if __name__ == '__main__':
     # app.run()
     app.run(debug=True)

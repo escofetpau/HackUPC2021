@@ -4,3 +4,7 @@ from flask import jsonify, send_file
 
 def base(request):
     return render_template("index.html", user={'name': 'nico'})
+
+
+def paint_view(request):
+    return render_template("pintar.html")
