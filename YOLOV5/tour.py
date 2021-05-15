@@ -1,0 +1,39 @@
+# https://pypi.org/project/yolov5/
+# https://colab.research.google.com/github/pytorch/pytorch.github.io/blob/master/assets/hub/ultralytics_yolov5.ipynb#scrollTo=2TIP-Omi45MF
+
+import torch
+from pprint import pprint
+from PIL import Image
+
+tour_name = '427083'
+images = [str(i) for i in range(8)]
+
+# model
+model = torch.hub.load('ultralytics/yolov5', 'yolov5x', pretrained=True)
+
+for image in images:
+  im = Image.open(f'{tour_name}/{image}_out1.png')
+    
+  width, height = im.size
+    
+
+  left = 0
+  top = height / 3
+  right = width
+  bottom = 2 * height / 3
+    
+  im1 = im.crop((left, top, right, bottom))
+    
+  im1.save('temp.png')
+
+  # inference with test time augmentation
+  results = model('temp.png', augment=True)
+
+  results.print()
+  pprint(eval(results.pandas().xyxy[0].to_json(orient="records")))
+
+  # show results
+  results.show()
+
+# save results
+# results.save(save_dir='results/')
