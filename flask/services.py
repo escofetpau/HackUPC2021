@@ -10,6 +10,27 @@ import sys
 import time
 from numpy import pi
 
+def cubemap_to_6_files(fname, out_dir='out'):
+    file_name = fname.split('/')[-1].split('.')[0]
+    image = cv2.imread(fname)
+    h = image.shape[0]
+    w = image.shape[1]
+    
+    back    = image[int(h/3):int(h*2/3), 0:int(w/4)]
+    left    = image[int(h/3):int(h*2/3), int(w/4):int(w*2/4)]
+    front   = image[int(h/3):int(h*2/3), int(w*2/4):int(w*3/4)]
+    right   = image[int(h/3):int(h*2/3), int(w*3/4):int(w)]
+    top     = image[0:int(h/3), int(w*2/4):int(w*3/4)]
+    bottom  = image[int(h*2/3):int(h), int(w*2/4):int(w*3/4)]
+
+    cv2.imwrite(os.path.join(out_dir, 'back.png'), back)
+    cv2.imwrite(os.path.join(out_dir, 'left.png'), left)
+    cv2.imwrite(os.path.join(out_dir, 'front.png'), front)
+    cv2.imwrite(os.path.join(out_dir, 'right.png'), right)
+    cv2.imwrite(os.path.join(out_dir, 'top.png'), top)
+    cv2.imwrite(os.path.join(out_dir, 'bottom.png'), bottom)
+
+
 def generate_mapping_data(image_width):
     in_size = [image_width, image_width * 3 / 4]
     edge = in_size[0] / 4  # The length of each edge in pixels
@@ -352,4 +373,18 @@ def photos_to_text(request, id):
 
     return text
 
+def photo_bottom(request, id, photo):
+    if not os.path.exists(f'static/cubemap/{id}'):
+        os.mkdir(f'static/cubemap/{id}')
 
+    if not os.path.exists(f'static/cubemap/{id}/{photo[:-5]}_out1.png'):
+        panorama_to_cubemap(f'static/dataset/{id}/{photo}', photo[:-5], f'static/cubemap/{id}')
+
+    if not os.path.exists(f'static/cubemap_split/{id}'):
+        os.mkdir(f'static/cubemap_split/{id}')
+
+    if not os.path.exists(f'static/cubemap_split/{id}/{photo[:-5]}'):
+        os.mkdir(f'static/cubemap_split/{id}/{photo[:-5]}')
+
+    cubemap_to_6_files(f'static/cubemap/{id}/{photo[:-5]}_out1.png', f'static/cubemap_split/{id}/{photo[:-5]}')
+    return send_file(f'static/cubemap_split/{id}/{photo[:-5]}/bottom.png')

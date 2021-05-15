@@ -3,3 +3,4 @@ out/
 flask/__pycache__/
 flask/static/dataset
 flask/static/cubemap/*
+flask/static/cubemap_split/*
