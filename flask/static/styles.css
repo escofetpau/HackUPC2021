@@ -12,3 +12,39 @@ input {
     padding-top: 10%;
     text-align: center;
 }
+
+#next {
+    position: absolute;
+    left: 95vw;
+    top: 45vh;
+    z-index: 3;
+    display: none;
+    cursor: pointer;
+    background:none;
+    border: none;
+
+}
+
+#previous {
+    position: absolute;
+    left: 2vw;
+    top: 45vh;
+    z-index: 3;
+    display: none;
+    cursor: pointer;
+    background:none;
+    border: none;
+    transform: scaleX(-1);
+}
+
+#tripode {
+    position: absolute;
+    left: 95vw;
+    top: 88vh;
+    z-index: 3;
+    display: none;
+    cursor: pointer;
+    background:none;
+    border: none;
+}
+
