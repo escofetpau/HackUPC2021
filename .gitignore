@@ -7,3 +7,7 @@ flask/static/cubemap_split/*
 flask/.DS_Store
 flask/static/.DS_Store
 flask/static/panorama/
+../.DS_Store
+.DS_Store
+flask/static/.DS_Store
+aaa/*

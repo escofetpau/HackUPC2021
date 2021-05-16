@@ -33,6 +33,8 @@ input {
     display: none;
     background: white;
     border: none;
+    max-width: 15rem;
+    padding: 7px;
 }
 
 #next {
