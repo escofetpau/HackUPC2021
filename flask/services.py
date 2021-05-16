@@ -267,6 +267,7 @@ def photos_to_text(request, id):
         im1.save('static/temp.png')
 
         results = model('static/temp.png', augment=True)
+        
         items = eval(results.pandas().xyxy[0].to_json(orient="records"))
 
         elements = []

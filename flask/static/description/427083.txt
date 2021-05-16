@@ -1,0 +1,1 @@
+{'description': 'This property is a house located in Barcelona on street Rambla.\nThis house has 2 bathrooms and 1 bedrooms with a bed and some cupboards.\nIn the dining room there is a couch, some chairs and a dining table. In the livingroom there is a couch, a tv and some chairs.'}
