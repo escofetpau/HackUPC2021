@@ -1,22 +1,5 @@
 Hack UPC 2021 - Floorfy Challenge
 
-
-# Requirements
-Project edge-connect should be installed in same level as this repo:
-
-```
-$ cd wdir
-$ git clone https://github.com/escofetpau/HackUPC2021
-$ git clone https://github.com/knazeri/edge-connect
-```
-
-## Recomended library versions:
-Use anaconda enviroment with python 3.6
-
-numpy==1.14.6
-scipy==1.0.1
-...
-
 ## Inspiration
 Floorfy proposed us this challenge as they want to improve the quality of their tours. They provide us with a lot of 360 images and we thought this challenge fitted us because it involved a lot of terms we were not familiar with like image processing.
 
@@ -37,3 +20,20 @@ A lot of physics related to 360 images, like how to convert those images into cu
 
 ## What's next for 360 Image editor for Floorfy
 We have more ideas that we haven't had time to build, like a day-night transition for images, to be able to delete any object in the scene (not only the tripod) and adding ambient sound to the tour. We would also like to make some enchantment to the images, we thought this could be done with another DL.
+
+
+## Requirements
+Project edge-connect should be installed in same level as this repo:
+
+```
+$ cd wdir
+$ git clone https://github.com/escofetpau/HackUPC2021
+$ git clone https://github.com/knazeri/edge-connect
+```
+
+## Recomended library versions:
+Use anaconda enviroment with python 3.6
+
+numpy==1.14.6
+scipy==1.0.1
+...
