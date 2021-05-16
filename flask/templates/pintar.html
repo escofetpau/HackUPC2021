@@ -104,13 +104,26 @@
 
     <script>
         const d = new DrawTool('myCanvas');
-        d.background("green");
         var r = null;
         var myImageData = null;
 
-        fetch('static/bottom.png')
+        // cookievalue = document.cookie
+        // val = cookievalue.slice(5, cookievalue.length)
+        // console.log(val)
+        val = JSON.parse(getCookie('file'))
+        ID = val['ID']
+        last_img = val['last_image']
+
+        
+        document.getElementById('sombra').style.display = '';
+        document.getElementById('loader').style.display = '';
+        fetch('/bottom/' + ID + '/' + last_img)
         .then(res => res.blob())
-        .then(res => draw_to_canvas(res))
+        .then(res => {
+          document.getElementById('sombra').style.display = 'none';
+          document.getElementById('loader').style.display = 'none';
+          draw_to_canvas(res);
+        })
         .catch(err => console.log(err))
 
         function draw_to_canvas(blob) {
@@ -217,11 +230,36 @@
 
 
         function gen_panorama() {
+            document.getElementById('sombra').style.display = '';
+            document.getElementById('loader').style.display = '';
+
             fetch("/gen-panorama", {
                 method: 'POST'
             })
-            .then(res => console.log(res))
+            .then(res => {
+              console.log(res)
+              document.getElementById('sombra').style.display = 'none';
+              document.getElementById('loader').style.display = 'none';
+
+              window.location.href = '/';
+            })
         }
+
+        
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+            }
 
 </script>
 

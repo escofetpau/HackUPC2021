@@ -184,7 +184,16 @@ def photos_names(request, id):
 def drawed_image(request):
     file = request.files['file']
     file.save('../../edge-connect/eval/mask/tmp_mask.png')
-    print('file saved at edge-connect/eval/mask/tmp_mask.png')
+    
+    big_cookie = json.loads(request.cookies.get('file'))
+    print(big_cookie)
+    last_img = big_cookie['last_image']
+    ID_orig = big_cookie['ID']
+    original = f'static/cubemap_split/{ID_orig}/{last_img[:-5]}/bottom.png'
+
+    cmd = f'cp {original} ../../edge-connect/eval/image/bottom.png'
+    print('running command:', cmd)
+    os.system(cmd)
 
     print('Call edge-connect')
     os.environ["CUDA_VISIBLE_DEVICES"]='0,1,2,3'
@@ -201,23 +210,29 @@ def drawed_image(request):
 
 
 
-def files_to_panorama(back, front, right, left, top, bottom, out_dir='out'):
+def files_to_panorama(back, front, right, left, top, bottom, out_fname='panorama'):
     t0 = time.time()
 
-    output_filename = os.path.join(out_dir, 'panorama')
-    command = f'cube2sphere {back} {front} {right} {left} {top} {bottom} -f PNG -o {output_filename} -r 4096 2048'
+    command = f'cube2sphere {back} {front} {right} {left} {top} {bottom} -f PNG -o {out_fname} -r 4096 2048'
     print('running command:', command)
     os.system(command)
 
     print(time.time() - t0, 'seconds')
-    print(f'File generated: {output_filename}.png')
+    print(f'File generated: {out_fname}.png')
 
-    return output_filename
+    return out_fname
 
 
 
 def gen_panorama(request):
-    files_to_panorama('static/split/back.png', 'static/split/front.png', 'static/split/right.png', 'static/split/left.png', 'static/split/top.png', '../../edge-connect/eval/bottom.png', out_dir='.')
+    big_cookie = json.loads(request.cookies.get('file'))
+    last_img = big_cookie['last_image']
+    ID_orig = big_cookie['ID']
+    
+    computed_bottom = '../../edge-connect/eval/bottom.png'
+    route = f'static/cubemap_split/{ID_orig}/{last_img[:-5]}/'
+    out_fname = f'static/panorama/{ID_orig}/{last_img[:-5]}'
+    files_to_panorama(route + 'back.png', route + 'front.png', route + 'right.png', route + 'left.png', route + 'top.png', computed_bottom, out_fname=out_fname)
     return 'ok', 200
 
 
