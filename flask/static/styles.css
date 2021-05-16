@@ -28,7 +28,7 @@ input {
 #description {
     position: absolute;
     left: 2vw;
-    top: 2vh;
+    top: 3vh;
     z-index: 3;
     display: none;
     background: white;
@@ -62,7 +62,7 @@ input {
 #tripode {
     position: absolute;
     left: 95vw;
-    top: 88vh;
+    top: 3vh;
     z-index: 3;
     display: none;
     cursor: pointer;
@@ -70,3 +70,14 @@ input {
     border: none;
 }
 
+
+#cross {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 3;
+    display: none;
+    cursor: pointer;
+    background:none;
+    border: none;
+}

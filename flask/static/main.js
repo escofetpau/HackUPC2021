@@ -7,6 +7,7 @@ var input = document.getElementById("inputID");
 var container = document.getElementById("container")
 var rightArrow = document.getElementById("next")
 var leftArrow = document.getElementById("previous")
+var crossIcon = document.getElementById("cross")
 var generateText = document.getElementById("generate_text")
 var description = document.getElementById("description")
 var tripode = document.getElementById("tripode")
@@ -39,7 +40,7 @@ if (document.cookie == "") {
                 leftArrow.style.display = "block";
                 tripode.style.display = "block";
                 generateText.style.display = "block";
-                
+                crossIcon.style.display = 'block';
     
     
                 loadPicture(data, ID)
@@ -83,6 +84,7 @@ if (document.cookie == "") {
             leftArrow.style.display = "block";
             tripode.style.display = "block";
             generateText.style.display = "block";
+            crossIcon.style.display = 'block';
             
             if (val["text"] != "") {
                 generateText.style.display = "none";
@@ -210,10 +212,10 @@ function previousPicture(names, ID) {
 
 function editTripode(names, ID) {
 
-    cookievalue = document.cookie
-    val = cookievalue.slice(5, cookievalue.length)
-    console.log(val)
-    val = JSON.parse(val)
+    // cookievalue = document.cookie
+    // val = cookievalue.slice(5, cookievalue.length)
+    // console.log(val)
+    val = JSON.parse(getCookie('file'))
     val["filename"].push(names[i])
     val["last_image"] = names[i];
     document.cookie = "file=" + JSON.stringify(val);
@@ -237,4 +239,16 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+
+
+function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
+}
