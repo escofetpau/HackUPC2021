@@ -107,10 +107,10 @@
         var r = null;
         var myImageData = null;
 
-        cookievalue = document.cookie
-        val = cookievalue.slice(5, cookievalue.length)
-        console.log(val)
-        val = JSON.parse(val)
+        // cookievalue = document.cookie
+        // val = cookievalue.slice(5, cookievalue.length)
+        // console.log(val)
+        val = JSON.parse(getCookie('file'))
         ID = val['ID']
         last_img = val['last_image']
 
@@ -244,6 +244,22 @@
               window.location.href = '/';
             })
         }
+
+        
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+            }
 
 </script>
 

@@ -1,5 +1,8 @@
-// Get the input field
 var i = 0;
+
+if (getCookie('i') !== '') i = getCookie('i');
+
+
 var input = document.getElementById("inputID");
 var container = document.getElementById("container")
 var rightArrow = document.getElementById("next")
@@ -59,10 +62,10 @@ if (document.cookie == "") {
     }
     })
 } else {
-    cookievalue = document.cookie
-    val = cookievalue.slice(5, cookievalue.length)
-    console.log(val)
-    val = JSON.parse(val)
+    // cookievalue = document.cookie
+    // val = cookievalue.slice(5, cookievalue.length)
+    // console.log(val)
+    val = JSON.parse(getCookie('file'))
 
     ID = val["ID"]
     // Trigger the button element with a click
@@ -133,9 +136,9 @@ function generateDescription(ID) {
 
 function loadPicture(names, ID) {
     var name = names[i];
-    cookievalue = document.cookie
-    val = cookievalue.slice(5, cookievalue.length)
-    val = JSON.parse(val)
+    // cookievalue = document.cookie
+    // val = cookievalue.slice(5, cookievalue.length)
+    val = JSON.parse(getCookie('file'))
     var files = val['filename'];
     var found = false;
     for (let x = 0; x < files.length; ++x) {
@@ -213,8 +216,25 @@ function editTripode(names, ID) {
     val = JSON.parse(val)
     val["filename"].push(names[i])
     val["last_image"] = names[i];
-    document.cookie = "file=" + JSON.stringify(val)
+    document.cookie = "file=" + JSON.stringify(val);
+    document.cookie = 'i=' + i;
 
     window.location.replace("/paint");
         
+    }
+
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+        }
+    }
+    return "";
     }
