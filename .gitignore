@@ -4,5 +4,7 @@ flask/__pycache__/
 flask/static/dataset
 flask/static/cubemap/*
 flask/static/cubemap_split/*
-flask/.DS_Store
+../.DS_Store
+.DS_Store
 flask/static/.DS_Store
+aaa/*
