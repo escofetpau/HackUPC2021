@@ -94,13 +94,17 @@
 
 <body style="margin: 0;">
 
-    <div style="margin: auto; position: relative;">
-        <canvas id="myCanvas" height="1024px" width="1024px" style="height: 90vh;"></canvas>
-        <div class="lds-roller" id="loader" style="z-index: 2; position: absolute; left: 5rem; top: 5rem; fill: black; display: none;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <div style="margin: auto; position: relative; display: grid; place-items: center;">
+      <canvas id="myCanvas" height="1024px" width="1024px" style="height: 600px; margin: 20px;"></canvas>
+      <div>
+        <button onclick="send_image()">Render</button>
+        <button onclick="gen_panorama()">Gen panorama</button>
+      </div>
     </div>
-    <div id="sombra" style="position: absolute; top: 0; left: 0; z-index: 1; background: rgba(255, 255, 255, 0.5); width: 100vw; height: 100vh; display: none;"></div>
-    <button onclick="send_image()">Render</button>
-    <button onclick="gen_panorama()">Gen panorama</button>
+      <div id="sombra" style="position: absolute; top: 0; left: 0; z-index: 1; background: rgba(255, 255, 255, 0.5); width: 100vw; height: 100vh; display: none; place-items: center;">
+        <div class="lds-roller" id="loader" style="z-index: 2; fill: black; display: none;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        
+    </div>
 
     <script>
         const d = new DrawTool('myCanvas');
@@ -115,7 +119,7 @@
         last_img = val['last_image']
 
         
-        document.getElementById('sombra').style.display = '';
+        document.getElementById('sombra').style.display = 'grid';
         document.getElementById('loader').style.display = '';
         fetch('/bottom/' + ID + '/' + last_img)
         .then(res => res.blob())
@@ -188,7 +192,7 @@
         }
 
         function send_image() {
-            document.getElementById('sombra').style.display = '';
+            document.getElementById('sombra').style.display = 'sombra';
             document.getElementById('loader').style.display = '';
 
 
@@ -230,7 +234,7 @@
 
 
         function gen_panorama() {
-            document.getElementById('sombra').style.display = '';
+            document.getElementById('sombra').style.display = 'sombra';
             document.getElementById('loader').style.display = '';
 
             fetch("/gen-panorama", {
