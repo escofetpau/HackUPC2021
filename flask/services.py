@@ -282,6 +282,7 @@ def photos_to_text(request, id):
         im1.save('static/temp.png')
 
         results = model('static/temp.png', augment=True)
+        
         items = eval(results.pandas().xyxy[0].to_json(orient="records"))
 
         elements = []
@@ -314,12 +315,8 @@ def photos_to_text(request, id):
             property_rooms[class_room].append(elements)
 
     ### Generació del text
-    mockup = {'type': 'house', 'city': 'Barcelona', 'street': 'Rambla'}
 
     text = "{'description': '"
-
-    # Type and location
-    text += f"This property is a {mockup['type']} located in {mockup['city']} on street {mockup['street']}.\\n"
     
     # Bathroom and bedrooms
     bedroom_elems = set()
@@ -337,7 +334,7 @@ def photos_to_text(request, id):
     if 'chair' in bedroom_elems:
         sentences.append('some chairs')
 
-    text += f"This {mockup['type']} has {len(property_rooms['bathroom'])} bathrooms and {len(property_rooms['bedroom'])} bedrooms with {concat_sentences(sentences, False)}.\\n"
+    text += f"This property has {len(property_rooms['bathroom'])} bathrooms and {len(property_rooms['bedroom'])} bedrooms with {concat_sentences(sentences, False)}.\\n"
 
     # Diningroom
     diningroom_elems = set()
