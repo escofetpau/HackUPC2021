@@ -1,1 +1,1 @@
-{'description': 'This property is a house located in Barcelona on street Rambla.\nThis house has 3 bathrooms and 2 bedrooms with a bed and some cupboards.\nIn the dining room there are some chairs. Regarding the kitchen there is an oven, a refrigerator, a sink and some chairs.'}
+{'description': 'This property has 3 bathrooms and 2 bedrooms with a bed and some cupboards.\nIn the dining room there are some chairs. Regarding the kitchen there is an oven, a refrigerator, a sink and some chairs.'}
